@@ -1,0 +1,17 @@
+from helpers.decorators import command
+def mp(t,a,b,d=None):return ''.join(chr(a+ord(c)-65) if 'A'<=c<='Z' else chr(b+ord(c)-97) if 'a'<=c<='z' else chr(d+ord(c)-48) if d and c.isdigit() else c for c in t)
+for n,a,b,d in [('bold',0x1D5D4,0x1D5EE,0x1D7EC),('italic',0x1D608,0x1D622,None),('bolditalic',0x1D63C,0x1D656,None),('monospace',0x1D670,0x1D68A,0x1D7F6),('doublestruck',0x1D538,0x1D552,0x1D7D8),('circle',0x24B6,0x24D0,None),('fullwidth',0xFF21,0xFF41,0xFF10),('squared',0x1F130,0x1F130,None),('parenthesized',0x1F110,0x249C,None)]:
+ async def h(e,a=a,b=b,d=d):await e.edit(mp(e.pattern_match.group(1),a,b,d))
+ h.__name__=n+'_handler';globals()[h.__name__]=command(fr'{n} (.+)',f'{n} text')(h)
+S=dict(zip('abcdefghijklmnopqrstuvwxyz','ᴀʙᴄᴅᴇꜰɢʜɪᴊᴋʟᴍɴᴏᴘǫʀꜱᴛᴜᴠᴡxʏᴢ'))
+@command(r'smallcaps (.+)','Small caps')
+async def smallcaps_handler(e):await e.edit(''.join(S.get(c,c) for c in e.pattern_match.group(1).lower()))
+F=dict(zip('abcdefghijklmnopqrstuvwxyz','ɐqɔpǝɟƃɥᴉɾʞlɯunopqɹsʇnʌʍxʎz'))
+@command(r'flip (.+)','Flip text')
+async def flip_handler(e):await e.edit('`'+''.join(F.get(c,c) for c in e.pattern_match.group(1).lower()[::-1])+'`')
+@command(r'strike (.+)','Strikethrough')
+async def strike_handler(e):await e.edit(''.join(c+'\u0336' for c in e.pattern_match.group(1)))
+@command(r'underline (.+)','Underline')
+async def underline_handler(e):await e.edit(''.join(c+'\u0332' for c in e.pattern_match.group(1)))
+@command('fancyhelp','Fancy help')
+async def fancyhelp_handler(e):await e.edit('✨ `.bold` `.italic` `.bolditalic` `.monospace` `.doublestruck` `.circle` `.fullwidth` `.squared` `.parenthesized` `.smallcaps` `.flip` `.strike` `.underline`')

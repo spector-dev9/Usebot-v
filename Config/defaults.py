@@ -1,0 +1,15 @@
+"""Safe ZeroX defaults."""
+class Defaults:
+    BOT_VERSION = "1.1.0"
+    BOT_NAME = "ZeroX"
+    BOT_AUTHOR = "ZeroX"
+    MAX_MESSAGE_LENGTH = 4096
+    MAX_CAPTION_LENGTH = 1024
+    FLOOD_WAIT_TIME = 5
+    AUTO_RELOAD = True
+    LOAD_DISABLED_PLUGINS = False
+    CACHE_TTL = 3600
+    MAX_CACHE_SIZE = 100
+    ENABLE_STATS = True
+    ENABLE_LOGGING = True
+    ENABLE_ERROR_REPORTING = True
